@@ -73,9 +73,11 @@
 //   );
 // }
 
+// frontend/src/pages/Home.jsx
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import Navbar from '../components/Navbar';
+import WalletInfo from '../components/WalletInfo'; // ✅ NEW: Import WalletInfo
 import ExpenseForm from '../components/ExpenseForm';
 import ReceiptUpload from '../components/ReceiptUpload';
 import TextSplitResult from '../components/TextSplitResult';
@@ -83,7 +85,7 @@ import ReceiptSplitResult from '../components/ReceiptSplitResult';
 import CombinedSummary from '../components/CombinedSummary';
 import { combineSplits } from '../utils/combineSplits';
 import { saveCombinedSplit } from '../api/firestore';
-import VantaBackground from '../components/VantaBackground'; // ✅ new import
+import VantaBackground from '../components/VantaBackground';
 
 export default function Home() {
   const { user } = useAuth();
@@ -122,8 +124,9 @@ export default function Home() {
 
   return (
     <div className="relative min-h-screen overflow-hidden">
-      <VantaBackground /> {/* ✅ Animated background */}
+      <VantaBackground />
       <Navbar />
+      <WalletInfo /> {/* ✅ NEW: Display zkWallet + ANS */}
       <div className="p-4 max-w-4xl mx-auto relative z-10 text-gray-800">
         {/* Text Split Box */}
         <div className="bg-white/90 p-6 rounded-xl shadow mb-8">

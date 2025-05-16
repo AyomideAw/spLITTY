@@ -23,3 +23,5 @@ backend/node_modules/
 # IDE/editor files
 .vscode/
 *.swp
+
+backend/vision-key.json

@@ -4,26 +4,33 @@ export default function ExpenseForm({ setTextResult }) {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async () => {
-    if (!input.trim()) return;
-
+    const handleSubmit = async () => {
+        if (!input.trim()) return;
+  
     setLoading(true);
     try {
       const res = await fetch('http://localhost:8978/api/expenses/parse', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ rawText: input })
+        body: JSON.stringify({ rawText: input }),
       });
-
+  
       const data = await res.json();
       console.log('[ExpenseForm] Backend response:', data);
-      setTextResult(data.parsed); // ✅ pass to parent (Home.jsx)
+  
+      // ✅ Extract correct structure
+      if (data.parsed?.people) {
+        setTextResult(data.parsed.people);
+      } else {
+        setTextResult(data.parsed); // fallback
+      }
     } catch (err) {
       console.error('Error during text split:', err);
     } finally {
       setLoading(false);
     }
   };
+  
 
   return (
     <div className="p-4 max-w-md mx-auto">

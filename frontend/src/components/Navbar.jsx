@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../firebase';
+import { Link } from 'react-router-dom';
 
 export default function Navbar() {
   const { user } = useAuth();
@@ -27,6 +28,7 @@ export default function Navbar() {
         <button onClick={() => signOut(auth)} className="bg-red-500 px-3 py-1 rounded text-sm text-white font-medium transition-transform transform hover:-translate-y-1 hover:font-bold">
           Sign Out
         </button>
+        <Link to="/settle" className="hover:text-indigo-700 transition">Settle</Link> {/* ✅ New */}
       </div>
     </nav>
   );

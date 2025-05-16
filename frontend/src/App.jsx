@@ -13,6 +13,7 @@ import LoginPage from './pages/LoginPage';
 import Home from './pages/Home';
 import History from './pages/History';
 import SplitDetail from './components/SplitDetail'; // or adjust if in components
+import SettlePage from './pages/SettlePage';
 
 function App() {
   const { user } = useAuth();
@@ -23,6 +24,7 @@ function App() {
         <Route path="/" element={user ? <Home /> : <LoginPage />} />
         <Route path="/history" element={user ? <History /> : <Navigate to="/" />} />
         <Route path="/split/:id" element={user ? <SplitDetail /> : <Navigate to="/" />} />
+        <Route path="/settle" element={<SettlePage />} />
       </Routes>
     </Router>
   );

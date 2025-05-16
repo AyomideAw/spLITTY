@@ -7,16 +7,22 @@
 // export default App;
 
 // frontend/src/App.jsx
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { useAuth } from './context/AuthContext';
+import LoginPage from './pages/LoginPage';
 import Home from './pages/Home';
-import SplitDetail from './components/SplitDetail';
+import History from './pages/History';
+import SplitDetail from './components/SplitDetail'; // or adjust if in components
 
 function App() {
+  const { user } = useAuth();
+
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/split/:id" element={<SplitDetail />} />
+        <Route path="/" element={user ? <Home /> : <LoginPage />} />
+        <Route path="/history" element={user ? <History /> : <Navigate to="/" />} />
+        <Route path="/split/:id" element={user ? <SplitDetail /> : <Navigate to="/" />} />
       </Routes>
     </Router>
   );

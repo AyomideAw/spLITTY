@@ -1,21 +1,28 @@
 import { useState } from 'react';
-import SplitResult from './SplitResult';
 
-export default function ExpenseForm() {
+export default function ExpenseForm({ setTextResult }) {
   const [input, setInput] = useState('');
-  const [split, setSplit] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
+    if (!input.trim()) return;
+
     setLoading(true);
-    const res = await fetch('http://localhost:8978/api/expenses/parse', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ prompt: input })
-    });
-    const data = await res.json();
-    setSplit(data.split);
-    setLoading(false);
+    try {
+      const res = await fetch('http://localhost:8978/api/expenses/parse', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ rawText: input })
+      });
+
+      const data = await res.json();
+      console.log('[ExpenseForm] Backend response:', data);
+      setTextResult(data.parsed); // ✅ pass to parent (Home.jsx)
+    } catch (err) {
+      console.error('Error during text split:', err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -33,7 +40,6 @@ export default function ExpenseForm() {
       >
         {loading ? 'Splitting...' : 'Split Now'}
       </button>
-      {split && <SplitResult split={split} />}
     </div>
   );
 }

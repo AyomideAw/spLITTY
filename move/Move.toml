@@ -1,10 +1,10 @@
 [package]
 name = "GroupSplitter"
-version = "0.0.1"
+version = "0.0.2"
 
 [dependencies]
 AptosFramework = { git = "https://github.com/aptos-labs/aptos-core.git", subdir = "aptos-move/framework/aptos-framework", rev = "main" }
 
 [addresses]
-GroupSplitter = "0xf422b73d0fd463e73eed36ea4d92185428f7310bea29baa2063d4ed557dfe746"
+GroupSplitter = "0x81da4f271a18f52dde0b0868e3bd644fbb980d1953305c715a874a2ec0bdbf05"
 aptos_framework = "0x1"

@@ -1,4 +1,5 @@
-module GroupSplitter::GroupSplitter {
+module GroupSplitter::splitty_v2 {
+
     use std::signer;
     use std::string;
     use std::vector;

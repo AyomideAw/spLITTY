@@ -73,7 +73,6 @@
 //   );
 // }
 
-
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import Navbar from '../components/Navbar';
@@ -84,10 +83,10 @@ import ReceiptSplitResult from '../components/ReceiptSplitResult';
 import CombinedSummary from '../components/CombinedSummary';
 import { combineSplits } from '../utils/combineSplits';
 import { saveCombinedSplit } from '../api/firestore';
+import VantaBackground from '../components/VantaBackground'; // ✅ new import
 
 export default function Home() {
   const { user } = useAuth();
-
   const [textResult, setTextResult] = useState(null);
   const [receiptItems, setReceiptItems] = useState([]);
   const [receiptResult, setReceiptResult] = useState(null);
@@ -122,11 +121,12 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-white">
+    <div className="relative min-h-screen overflow-hidden">
+      <VantaBackground /> {/* ✅ Animated background */}
       <Navbar />
-      <div className="p-4 max-w-4xl mx-auto">
+      <div className="p-4 max-w-4xl mx-auto relative z-10 text-gray-800">
         {/* Text Split Box */}
-        <div className="bg-white p-6 rounded-xl shadow mb-8">
+        <div className="bg-white/90 p-6 rounded-xl shadow mb-8">
           <h2 className="text-lg font-semibold text-gray-700 mb-2">
             Add any miscellaneous expenses made that aren’t on the receipt
           </h2>
@@ -135,7 +135,7 @@ export default function Home() {
         </div>
 
         {/* Receipt Split Box */}
-        <div className="bg-white p-6 rounded-xl shadow mb-8">
+        <div className="bg-white/90 p-6 rounded-xl shadow mb-8">
           <ReceiptUpload setReceiptItems={setReceiptItems} />
           {receiptItems.length > 0 && (
             <ReceiptSplitResult
@@ -147,7 +147,7 @@ export default function Home() {
 
         {/* Combined Summary Box */}
         {combined && (
-          <div className="bg-white p-6 rounded-xl shadow">
+          <div className="bg-white/90 p-6 rounded-xl shadow">
             <CombinedSummary summary={combined} onSave={handleSave} isSaved={saved} />
           </div>
         )}

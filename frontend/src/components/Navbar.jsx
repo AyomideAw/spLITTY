@@ -10,7 +10,7 @@ export default function Navbar() {
   if (!user) return null;
 
   return (
-    <nav className="flex justify-between items-center px-6 py-3 bg-indigo-700 text-white shadow">
+    <nav className="flex justify-between items-center px-6 py-3 bg-0x68b8d1 text-white shadow">
       <h1
         onClick={() => navigate('/')}
         className="text-lg font-bold cursor-pointer"
@@ -18,13 +18,13 @@ export default function Navbar() {
         spLITTY
       </h1>
       <div className="flex gap-4 items-center">
-        <button onClick={() => navigate('/')} className="hover:underline text-sm">
+        <button onClick={() => navigate('/')} className="text-sm font-medium transition-transform transform hover:-translate-y-1 hover:font-bold">
           🏠 Home
         </button>
-        <button onClick={() => navigate('/history')} className="hover:underline text-sm">
+        <button onClick={() => navigate('/history')} className="text-sm font-medium transition-transform transform hover:-translate-y-1 hover:font-bold">
           📁 History
         </button>
-        <button onClick={() => signOut(auth)} className="bg-red-500 px-3 py-1 rounded text-sm">
+        <button onClick={() => signOut(auth)} className="bg-red-500 px-3 py-1 rounded text-sm text-white font-medium transition-transform transform hover:-translate-y-1 hover:font-bold">
           Sign Out
         </button>
       </div>

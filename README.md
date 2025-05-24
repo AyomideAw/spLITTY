@@ -55,7 +55,7 @@ Every action — `log_expense`, `settle` — is a real transaction on the **Apto
 | Layer | Tech |
 |-------|------|
 | Frontend | React + Tailwind + Vite |
-| Backend | Node.js + Express (Gemini/OpenAI for parsing) |
+| Backend | Node.js + Express (Gemini for parsing) |
 | Auth | Firebase Auth + **Aptos zkLogin SDK** |
 | Database | Firebase Firestore |
 | Blockchain | Aptos Move Smart Contracts deployed on Testnet |

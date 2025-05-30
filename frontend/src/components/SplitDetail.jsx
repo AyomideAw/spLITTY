@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
+import VantaBackground from '../components/VantaBackground';
+import Navbar from '../components/Navbar';
 
 export default function SplitDetail() {
   const { id } = useParams();
@@ -21,14 +23,21 @@ export default function SplitDetail() {
   if (!split) return <p className="text-center mt-10">Loading split...</p>;
 
   return (
-    <div className="max-w-2xl mx-auto bg-white p-4 mt-6 rounded shadow">
-      <h2 className="text-xl font-bold mb-2">Split Details</h2>
-      <p className="text-gray-500 text-sm mb-2">
-        Saved: {new Date(split.createdAt).toLocaleString()}
-      </p>
-      <pre className="bg-gray-50 p-3 rounded text-sm overflow-x-auto">
-        {JSON.stringify(split.split, null, 2)}
-      </pre>
+    <div className="relative min-h-screen">
+      <div className="absolute inset-0 -z-10"> 
+        <VantaBackground />
+      </div>
+        <Navbar />
+
+        <div className="max-w-2xl mx-auto bg-white p-4 mt-6 rounded shadow">
+        <h2 className="text-xl font-bold mb-2">Split Details</h2>
+        <p className="text-gray-500 text-sm mb-2">
+            Saved: {new Date(split.createdAt).toLocaleString()}
+        </p>
+        <pre className="bg-gray-50 p-3 rounded text-sm overflow-x-auto">
+            {JSON.stringify(split.split, null, 2)}
+        </pre>
+        </div>
     </div>
   );
 }

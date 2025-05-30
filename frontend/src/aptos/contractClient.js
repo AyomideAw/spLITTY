@@ -45,8 +45,24 @@ const client = new AptosClient(NODE_URL);
 
 // ✅ Your deployed module address
 const MODULE_ADDRESS = "0x81da4f271a18f52dde0b0868e3bd644fbb980d1953305c715a874a2ec0bdbf05";
-const MODULE_NAME = "GroupSplitter::splitty_v2"; // ✅ correct
+const MODULE_NAME = "splitty_v2"; // ✅ correct
 
+// ✅ 0. Register AptosCoin (needed for zkLogin wallets to see balance)
+export const registerAptosCoin = async (account) => {
+  const payload = {
+    type: "entry_function_payload",
+    function: "0x1::managed_coin::register",
+    type_arguments: ["0x1::aptos_coin::AptosCoin"],
+    arguments: [],
+  };
+
+  const txnRequest = await client.generateTransaction(account.address(), payload);
+  const signedTxn = await client.signTransaction(account, txnRequest);
+  const txResult = await client.submitTransaction(signedTxn);
+  await client.waitForTransaction(txResult.hash);
+
+  return txResult.hash;
+};
 
 // ✅ 1. Create group (MUST be called before logging expenses)
 export const createGroup = async (account, members = []) => {

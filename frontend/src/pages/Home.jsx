@@ -123,15 +123,18 @@ export default function Home() {
   };
 
   return (
-    <div className="relative min-h-screen overflow-hidden">
-      <VantaBackground />
+    <div className="relative min-h-screen">
+      <div className="absolute inset-0 -z-10"> 
+        <VantaBackground />
+      </div>
+
       <Navbar />
       <WalletInfo /> {/* ✅ NEW: Display zkWallet + ANS */}
       <div className="p-4 max-w-4xl mx-auto relative z-10 text-gray-800">
         {/* Text Split Box */}
         <div className="bg-white/90 p-6 rounded-xl shadow mb-8">
           <h2 className="text-lg font-semibold text-gray-700 mb-2">
-            Add any miscellaneous expenses made that aren’t on the receipt
+            Add any miscellaneous expenses made that aren't on the receipt
           </h2>
           <ExpenseForm setTextResult={setTextResult} />
           {textResult && <TextSplitResult split={textResult} />}

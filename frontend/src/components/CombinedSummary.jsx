@@ -47,11 +47,10 @@ export default function CombinedSummary({ summary, onSave, isSaved }) {
       // ✅ Save to Firestore
       await saveCombinedSplit(user.uid, summary);
 
-      // ✅ Log each expense on-chain
-      const promises = Object.entries(summary).map(([name, amount]) =>
-        logExpense(aptosAccount, name, Math.floor(Number(amount)))
-      );
-      await Promise.all(promises);
+      // ✅ Log each expense on-chain one at a time to avoid sequence errors
+      for (const [name, amount] of Object.entries(summary)) {
+        await logExpense(aptosAccount, name, Math.floor(Number(amount)));
+      }
 
       toast.success('Saved to Firestore + Logged on-chain!');
       onSave(); // Notify parent component

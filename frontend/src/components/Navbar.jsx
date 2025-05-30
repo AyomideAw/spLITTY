@@ -25,10 +25,10 @@ export default function Navbar() {
         <button onClick={() => navigate('/history')} className="text-sm font-medium transition-transform transform hover:-translate-y-1 hover:font-bold">
           📁 History
         </button>
+        <button onClick={() => navigate('/settle')} className="text-sm font-medium transition-transform transform hover:-translate-y-1 hover:font-bold">💲 Settle</button> 
         <button onClick={() => signOut(auth)} className="bg-red-500 px-3 py-1 rounded text-sm text-white font-medium transition-transform transform hover:-translate-y-1 hover:font-bold">
           Sign Out
         </button>
-        <Link to="/settle" className="hover:text-indigo-700 transition">Settle</Link> {/* ✅ New */}
       </div>
     </nav>
   );

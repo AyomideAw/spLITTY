@@ -50,6 +50,7 @@ import { auth } from '../../firebase';
 import { AptosAccount } from 'aptos';
 import toast from 'react-hot-toast';
 import { saveWalletAddress } from '../../firebase';
+import { createGroup, registerAptosCoin } from '../aptos/contractClient'; // ✅ updated import
 
 const AuthContext = createContext();
 
@@ -74,7 +75,24 @@ export const AuthProvider = ({ children }) => {
           const walletAddress = account.address().toString();
           await saveWalletAddress(firebaseUser.uid, walletAddress);
 
+          // ✅ Register AptosCoin to enable token transfers
+          try {
+            await registerAptosCoin(account);
+            toast.success('APT registered for wallet!');
+          } catch (regErr) {
+            console.warn('APT already registered or failed:', regErr.message);
+          }
+
           toast.success('zkWallet created successfully!');
+
+          // ✅ Ensure on-chain group exists for this user
+          try {
+            await createGroup(account, []);
+            console.log('Group created or already exists');
+          } catch (groupErr) {
+            console.warn('Group creation may have failed or already exists:', groupErr);
+          }
+
         } catch (err) {
           console.error('zkWallet creation failed:', err);
           toast.error('zkWallet creation failed.');
